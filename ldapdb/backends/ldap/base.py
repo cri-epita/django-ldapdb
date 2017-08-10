@@ -294,9 +294,9 @@ class DatabaseWrapper(BaseDatabaseWrapper):
         cursor = self._cursor()
         return cursor.connection.modify_s(dn, modlist)
 
-    def rename_s(self, dn, newrdn):
+    def rename_s(self, dn, newrdn, newsuperior=None):
         cursor = self._cursor()
-        return cursor.connection.rename_s(dn, newrdn)
+        return cursor.connection.rename_s(dn, newrdn, newsuperior=newsuperior)
 
     def search_s(self, base, scope, filterstr='(objectClass=*)', attrlist=None):
         cursor = self._cursor()

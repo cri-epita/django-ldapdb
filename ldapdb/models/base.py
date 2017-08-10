@@ -138,7 +138,9 @@ class Model(django.db.models.base.Model):
 
             if new_dn != old_dn:
                 logger.debug("renaming ldap entry %s to %s", old_dn, new_dn)
-                connection.rename_s(old_dn, self.build_rdn())
+                old_base_dn = old_dn.split(',', 1)[1]
+                newsuperior = None if old_base_dn == self.base_dn else self.base_dn
+                connection.rename_s(old_dn, self.build_rdn(), newsuperior)
 
             logger.debug("Modifying existing LDAP entry %s", new_dn)
             connection.modify_s(new_dn, modlist)
